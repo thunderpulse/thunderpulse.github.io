@@ -1,10 +1,10 @@
-const express = require('express');
-const cors = require('cors');
-const helmet = require('helmet');
-const dotenv = require('dotenv');
-const connectDB = require('./config/db');
-const contactRoutes = require('./routes/contactRoutes');
-const requestLogger = require('./middleware/logger');
+import express from 'express';
+import cors from 'cors';
+import helmet from 'helmet';
+import dotenv from 'dotenv';
+import connectDB from './config/db.js';
+import contactRoutes from './routes/contactRoutes.js';
+import requestLogger from './middleware/logger.js';
 
 // Load env vars
 dotenv.config();

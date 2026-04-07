@@ -1,7 +1,7 @@
-const Message = require('../models/Message');
-const nodemailer = require('nodemailer');
+import Message from '../models/Message.js';
+import nodemailer from 'nodemailer';
 
-exports.submitContactMessage = async (req, res) => {
+export const submitContactMessage = async (req, res) => {
   try {
     const { name, email, message } = req.body;
 
@@ -61,7 +61,7 @@ exports.submitContactMessage = async (req, res) => {
   }
 };
 
-exports.getMessages = async (req, res) => {
+export const getMessages = async (req, res) => {
   try {
     const messages = await Message.find().sort('-createdAt');
     res.status(200).json({ success: true, count: messages.length, data: messages });

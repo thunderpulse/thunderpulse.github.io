@@ -1,11 +1,11 @@
-const express = require('express');
-const { submitContactMessage, getMessages } = require('../controllers/contactController');
-const apiLimiter = require('../middleware/rateLimiter');
+import express from 'express';
+import { submitContactMessage, getMessages } from '../controllers/contactController.js';
+import apiLimiter from '../middleware/rateLimiter.js';
 
 const router = express.Router();
 
 router.route('/')
   .post(apiLimiter, submitContactMessage)
-  .get(getMessages); // Protect this route in production ideally
+  .get(getMessages);
 
-module.exports = router;
+export default router;
