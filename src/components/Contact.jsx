@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 const contactItems = [
   {
     id: "contact-email",
@@ -54,8 +56,42 @@ const contactItems = [
 ];
 
 export default function Contact() {
+  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+  const [status, setStatus] = useState('idle'); // idle, loading, success, error
+  const [errorMessage, setErrorMessage] = useState('');
+
+  const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setStatus('loading');
+    setErrorMessage('');
+    
+    try {
+      const response = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/contact`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+      });
+      
+      const data = await response.json();
+      
+      if (response.ok && data.success) {
+        setStatus('success');
+        setFormData({ name: '', email: '', message: '' });
+        setTimeout(() => setStatus('idle'), 5000);
+      } else {
+        setStatus('error');
+        setErrorMessage(data.message || 'Something went wrong.');
+      }
+    } catch (err) {
+      setStatus('error');
+      setErrorMessage('Failed to send message. Please try again later.');
+    }
+  };
+
   return (
-    <section id="contact" className="py-16 sm:py-20 md:py-28 bg-section-base">
+    <section id="contact" className="py-16 sm:py-20 md:py-28 bg-section-base relative overflow-hidden">
       <div className="orb w-[500px] h-[500px] bg-violet-600 bottom-0 left-1/2 translate-y-1/2 -translate-x-1/2" />
 
       <div className="section-container relative z-10">
@@ -68,32 +104,121 @@ export default function Contact() {
           </p>
         </div>
 
-        {/* Contact grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-3xl mx-auto">
-          {contactItems.map((item) => (
-            <a
-              key={item.id}
-              id={item.id}
-              href={item.href}
-              target={item.href.startsWith("http") ? "_blank" : "_self"}
-              rel="noopener noreferrer"
-              className="glass-card p-5 flex items-start gap-4 no-underline group"
-            >
-              <div
-                className="w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0 transition-all duration-300 group-hover:scale-110"
-                style={{ background: `${item.accent}18`, color: item.accent, border: `1px solid ${item.accent}30` }}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-5xl mx-auto items-start">
+          {/* Contact grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-4">
+            {contactItems.map((item) => (
+              <a
+                key={item.id}
+                id={item.id}
+                href={item.href}
+                target={item.href.startsWith("http") ? "_blank" : "_self"}
+                rel="noopener noreferrer"
+                className="glass-card p-5 flex items-start gap-4 no-underline group hover:border-[#7c3aed50] transition-colors"
+                style={{ background: 'rgba(255, 255, 255, 0.03)' }}
               >
-                {item.icon}
+                <div
+                  className="w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0 transition-all duration-300 group-hover:scale-110"
+                  style={{ background: `${item.accent}18`, color: item.accent, border: `1px solid ${item.accent}30` }}
+                >
+                  {item.icon}
+                </div>
+                <div className="min-w-0 flex-1">
+                  <p className="font-bold text-white text-sm">{item.label}</p>
+                  <p className="font-semibold text-sm truncate mt-0.5" style={{ color: item.accent }}>
+                    {item.value}
+                  </p>
+                  <p className="text-white/30 text-xs mt-1">{item.note}</p>
+                </div>
+              </a>
+            ))}
+          </div>
+
+          {/* Contact Form */}
+          <div className="glass-card p-6 sm:p-8" style={{ background: 'rgba(255, 255, 255, 0.02)' }}>
+            <h3 className="text-xl font-bold text-white mb-6">Send Me a Message</h3>
+            <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+              <div className="flex flex-col gap-1.5">
+                <label className="text-sm text-white/70 font-medium ml-1" htmlFor="name">Name</label>
+                <input 
+                  type="text" 
+                  id="name" 
+                  name="name" 
+                  value={formData.name} 
+                  onChange={handleChange} 
+                  required
+                  placeholder="John Doe"
+                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-white/20 focus:outline-none focus:border-violet-500 focus:ring-1 focus:ring-violet-500 transition-all text-sm"
+                />
               </div>
-              <div className="min-w-0">
-                <p className="font-bold text-white text-sm">{item.label}</p>
-                <p className="font-semibold text-sm truncate mt-0.5" style={{ color: item.accent }}>
-                  {item.value}
-                </p>
-                <p className="text-white/30 text-xs mt-1">{item.note}</p>
+              
+              <div className="flex flex-col gap-1.5">
+                <label className="text-sm text-white/70 font-medium ml-1" htmlFor="email">Email</label>
+                <input 
+                  type="email" 
+                  id="email" 
+                  name="email" 
+                  value={formData.email} 
+                  onChange={handleChange} 
+                  required
+                  placeholder="john@example.com"
+                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-white/20 focus:outline-none focus:border-violet-500 focus:ring-1 focus:ring-violet-500 transition-all text-sm"
+                />
               </div>
-            </a>
-          ))}
+
+              <div className="flex flex-col gap-1.5">
+                <label className="text-sm text-white/70 font-medium ml-1" htmlFor="message">Message</label>
+                <textarea 
+                  id="message" 
+                  name="message" 
+                  value={formData.message} 
+                  onChange={handleChange} 
+                  required
+                  rows="4"
+                  placeholder="Hello, I'd like to talk about..."
+                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-white/20 focus:outline-none focus:border-violet-500 focus:ring-1 focus:ring-violet-500 transition-all text-sm resize-none"
+                />
+              </div>
+
+              {status === 'error' && (
+                <div className="p-3 mt-2 bg-red-500/10 border border-red-500/20 rounded-lg text-red-400 text-sm">
+                  {errorMessage}
+                </div>
+              )}
+
+              {status === 'success' && (
+                <div className="p-3 mt-2 bg-green-500/10 border border-green-500/20 rounded-lg text-green-400 text-sm flex items-center gap-2">
+                  <svg className="w-5 h-5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  Message sent successfully! I'll get back to you soon.
+                </div>
+              )}
+
+              <button 
+                type="submit" 
+                disabled={status === 'loading'}
+                className="mt-4 w-full bg-violet-600 hover:bg-violet-700 text-white font-medium py-3 px-6 rounded-xl transition-all duration-300 transform hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center gap-2"
+              >
+                {status === 'loading' ? (
+                  <>
+                    <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    Sending...
+                  </>
+                ) : (
+                  <>
+                    Send Message
+                    <svg className="w-4 h-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                    </svg>
+                  </>
+                )}
+              </button>
+            </form>
+          </div>
         </div>
 
         {/* Footer */}

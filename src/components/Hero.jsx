@@ -49,13 +49,12 @@ export default function Hero() {
 
         {/* Role */}
         <p className="animate-fade-up delay-100 text-base sm:text-lg md:text-xl lg:text-2xl font-semibold text-white/65 tracking-wide">
-          Full Stack Developer&nbsp;&nbsp;·&nbsp;&nbsp;Java&nbsp;•&nbsp;React&nbsp;•&nbsp;Node.js
+          Full Stack Developer&nbsp;&nbsp;·&nbsp;&nbsp;React&nbsp;•&nbsp;Node.js&nbsp;•&nbsp;MongoDB
         </p>
 
         {/* Tagline */}
         <p className="animate-fade-up delay-200 text-sm sm:text-base md:text-lg text-white/50 max-w-2xl leading-relaxed px-2 sm:px-0">
-          3rd year (6th Semester) CSE student at ITER, SOA — building MERN apps,
-          exploring DSA, and crafting clean developer tools.
+          Full-stack developer skilled in building scalable web applications. Strong foundation in system design and API development with hands-on experience delivering production-ready projects.
         </p>
 
         {/* CTAs */}

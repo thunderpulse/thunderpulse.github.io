@@ -45,7 +45,7 @@ export default function Education() {
             {/* Stats */}
             <div className="grid grid-cols-3 md:grid-cols-1 gap-3 md:w-36">
               {[
-                { value: "8.8", label: "CGPA" },
+                { value: "8.78", label: "CGPA" },
                 { value: "3rd", label: "Year" },
                 { value: "6th", label: "Semester" },
               ].map((stat) => (

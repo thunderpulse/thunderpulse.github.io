@@ -1,10 +1,8 @@
 const certs = [
-  { id: 1, title: "Problem Solving",           issuer: "HackerRank",    emoji: "🏆", accent: "#f59e0b" },
-  { id: 2, title: "Full Stack Dev Bootcamp",   issuer: "GeeksforGeeks", emoji: "🌐", accent: "#10b981" },
-  { id: 3, title: "React Basics",              issuer: "HackerRank",    emoji: "⚛️", accent: "#0ea5e9" },
-  { id: 4, title: "Python for Data Science",   issuer: "Skill India",   emoji: "🐍", accent: "#8b5cf6" },
-  { id: 5, title: "SQL Certification",         issuer: "Intellipaat",   emoji: "🗄️", accent: "#f97316" },
-  { id: 6, title: "AWS Certification",         issuer: "Intellipaat",   emoji: "☁️", accent: "#ec4899" },
+  { id: 1, title: "Problem Solving", issuer: "HackerRank", emoji: "🏆", accent: "#f59e0b" },
+  { id: 2, title: "Full Stack Developer Bootcamp", issuer: "GeeksforGeeks", emoji: "🌐", accent: "#10b981" },
+  { id: 3, title: "AWS Fundamentals", issuer: "Intellipaat", emoji: "☁️", accent: "#ec4899" },
+  { id: 4, title: "Introduction to Data Science", issuer: "Cisco Networking", emoji: "📊", accent: "#0ea5e9" },
 ];
 
 export default function Certificates() {

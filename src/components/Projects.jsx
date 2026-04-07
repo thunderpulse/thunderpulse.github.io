@@ -1,53 +1,60 @@
 const projects = [
   {
     id: 1,
-    title: "GitFinder",
-    subtitle: "GitHub Profile Search App",
-    tags: ["React", "Node.js", "Express.js", "Tailwind CSS", "GitHub API"],
+    title: "Full Stack Portfolio Platform",
+    subtitle: "React, Node.js, Express, MongoDB",
+    tags: ["React", "Node.js", "Express", "MongoDB", "Nodemailer"],
+    accent: "#f43f5e",
+    features: [
+      "Separate frontend and backend architecture",
+      "RESTful APIs using Node.js and Express (MVC)",
+      "Secure contact system via Nodemailer",
+      "Applied rate limiting, validation, CORS, Helmet",
+    ],
+    github: "https://github.com/PinakiRath",
+  },
+  {
+    id: 2,
+    title: "GitFinder Analytics Platform",
+    subtitle: "GitHub Profile Analyzer",
+    tags: ["React", "Node.js", "Express", "MongoDB", "Redis"],
     accent: "#10b981",
     features: [
-      "Search GitHub users via GitHub REST API",
-      "Profile stats, repos & follower details",
-      "Matrix terminal-inspired dark UI",
-      "Express.js backend for optimised API calls",
+      "Analyze GitHub profiles & visualize repos in real-time",
+      "Scalable backend APIs with Redis caching",
+      "Implemented rate limiting & optimized API handling",
+      "Custom responsive dashboards via React & Tailwind",
     ],
     github: "https://github.com/PinakiRath/gitfinder",
   },
   {
-    id: 2,
+    id: 3,
     title: "Resume ATS Analyzer",
     subtitle: "AI-Powered Resume Scanner",
-    tags: ["React", "Node.js", "MongoDB", "OpenAI API", "JWT"],
+    tags: ["React", "Node.js", "MongoDB", "Gemini API"],
     accent: "#7c3aed",
     features: [
-      "Detects missing ATS keywords & resume gaps",
-      "AI feedback powered by OpenAI API",
-      "JWT authentication & protected routes",
-      "MongoDB for session & history storage",
+      "Evaluates resume compatibility with ATS systems",
+      "PDF parsing & keyword skill extraction",
+      "Integrated Gemini API for intelligent feedback",
+      "MongoDB schema to store user data & reports",
     ],
-    github: "https://github.com/PinakiRath/resume-ats-analyzer",
+    github: "https://github.com/PinakiRath/Resume-Analyzer",
   },
   {
-    id: 3,
-    title: "AutoFix Code",
+    id: 4,
+    title: "AutoFix-Code",
     subtitle: "AI Code Repair Tool",
-    tags: ["React", "Node.js", "MongoDB", "DeepSeek API"],
+    tags: ["React", "TypeScript", "Node.js", "MongoDB", "DeepSeek API"],
     accent: "#0ea5e9",
     features: [
-      "Converts error logs into AI-driven code fixes",
-      "Before/after diff view for changes",
-      "Repair sessions saved in MongoDB",
-      "Clean split-panel developer UI",
+      "Analyzes error logs to generate automated fix suggestions",
+      "React + TypeScript UI with dynamic code comparison",
+      "Backend services integrating AI APIs for repair",
+      "Structured data handling using MongoDB",
     ],
     github: "https://github.com/PinakiRath/autofix-code",
   },
-];
-
-const miniProjects = [
-  { name: "Portfolio Website",  tags: ["React", "Tailwind"] },
-  { name: "Age Calculator",     tags: ["HTML", "CSS", "JS"] },
-  { name: "Currency Converter", tags: ["React", "API"] },
-  { name: "Password Generator", tags: ["JavaScript"] },
 ];
 
 export default function Projects() {
@@ -122,21 +129,7 @@ export default function Projects() {
           ))}
         </div>
 
-        {/* Mini projects */}
-        <p className="text-center text-white/25 text-xs font-bold uppercase tracking-[0.2em] mb-5">
-          Other Projects
-        </p>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
-          {miniProjects.map((mp) => (
-            <div
-              key={mp.name}
-              className="glass-card p-4 text-center"
-            >
-              <p className="text-sm font-bold text-white/75">{mp.name}</p>
-              <p className="text-xs text-white/30 mt-1.5">{mp.tags.join(" · ")}</p>
-            </div>
-          ))}
-        </div>
+
       </div>
     </section>
   );
